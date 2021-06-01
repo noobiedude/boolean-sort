@@ -1,25 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
+import BooleanSort from './components/sorter.component';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+  let nums = [...Array(10)].map((e) => Math.floor(Math.random() * 20) + 1);
+  return <BooleanSort timer={2000} nums={nums}></BooleanSort>;
 }
 
-export default App;
