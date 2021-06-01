@@ -7,40 +7,46 @@ const BooleanSort = ({ timer, nums }) => {
   const ok = useRef(true);
   const [numbers, setNumbers] = useState(nums);
   const numbersRef = useRef(numbers);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (i < numbersRef.current.length - 1) {
-      if (numbersRef.current[i] > numbersRef.current[i + 1]) {
-        numbersRef.current[i] += numbersRef.current[i + 1];
-        numbersRef.current[i + 1] =
-          numbersRef.current[i] - numbersRef.current[i + 1];
-        numbersRef.current[i] -= numbersRef.current[i + 1];
-        ok.current = false;
-        setNumbers(numbersRef.current);
-      }
-      setTimeout(() => {
-        setI(i + 1);
-        //console.log(numbers, ok, i);
-      }, timerRef.current);
-    } else {
-      if (ok.current) {
-        console.log(`gata`);
-      } else {
-        setTimeout(
-          () => {
-            ok.current = true;
-            setI(0);
-          }, //timerRef.current
-          0
-        );
-      }
+    if (!isPaused){
+        if (i < numbersRef.current.length - 1) {
+        if (numbersRef.current[i] > numbersRef.current[i + 1]) {
+            numbersRef.current[i] += numbersRef.current[i + 1];
+            numbersRef.current[i + 1] =
+            numbersRef.current[i] - numbersRef.current[i + 1];
+            numbersRef.current[i] -= numbersRef.current[i + 1];
+            ok.current = false;
+            setNumbers(numbersRef.current);
+        }
+        setTimeout(() => {
+            setI(i + 1);
+            //console.log(numbers, ok, i);
+        }, timerRef.current);
+        } else {
+        if (ok.current) {
+            console.log(`gata`);
+        } else {
+            setTimeout(
+            () => {
+                ok.current = true;
+                setI(0);
+            }, //timerRef.current
+            0
+            );
+        }
+        }
     }
-  }, [i]);
+  }, [i, isPaused]);
 
   const isAsc = (num1, num2) => {
     return num1 <= num2;
   };
+  
   return (
+    <div>
+    <button onClick={(e) => setIsPaused(!isPaused)}>{isPaused ? `Start` : `Pause`}</button>
     <Container>
       {numbers.map((num, idx) => {
         let color;
@@ -65,6 +71,7 @@ const BooleanSort = ({ timer, nums }) => {
         );
       })}
     </Container>
+    </div>
   );
 };
 
