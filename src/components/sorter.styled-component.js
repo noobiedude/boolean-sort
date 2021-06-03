@@ -8,7 +8,7 @@ const Rect = styled.div`
   border: 1px solid black;
   height: ${(props) => props.height}rem;
   background-color: ${(props) => props.color || `#b4b4b4`};
-  border-radius: 4px;
+  border-radius: 4px 4px 0 0;
 `;
 
 const Container = styled.div`

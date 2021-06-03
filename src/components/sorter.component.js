@@ -18,23 +18,24 @@ const BooleanSort = ({ timer, nums }) => {
             numbersRef.current[i] - numbersRef.current[i + 1];
             numbersRef.current[i] -= numbersRef.current[i + 1];
             ok.current = false;
-            setNumbers(numbersRef.current);
+            setTimeout(() => {
+              setNumbers([...numbersRef.current]);
+              setTimeout(() => {
+                setI(i + 1);
+                }, timerRef.current);
+            }, timerRef.current);
         }
+        else{
         setTimeout(() => {
             setI(i + 1);
-            //console.log(numbers, ok, i);
         }, timerRef.current);
+      }
         } else {
         if (ok.current) {
             console.log(`gata`);
         } else {
-            setTimeout(
-            () => {
-                ok.current = true;
-                setI(0);
-            }, //timerRef.current
-            0
-            );
+              ok.current = true;
+              setI(0);
         }
         }
     }
