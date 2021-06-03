@@ -19,4 +19,10 @@ const Container = styled.div`
   width: 500px;
 `;
 
-export { Rect, Container };
+const PlayButton = styled.button`
+  padding: 1rem;
+  border-radius: 4px;
+  border: none;
+`;
+
+export { Rect, Container, PlayButton };

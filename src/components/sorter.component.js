@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Container, Rect } from "./sorter.styled-component";
+import { Container, Rect, PlayButton } from "./sorter.styled-component";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 
-const BooleanSort = ({ timer, nums }) => {
+const BooleanSort = ({ nums }) => {
   const [i, setI] = useState(0);
-  const timerRef = useRef(timer);
+  const [timer, setTimer] = useState(1000);
+  const timeInputRef = useRef(timer);
   const ok = useRef(true);
   const [numbers, setNumbers] = useState(nums);
   const numbersRef = useRef(numbers);
@@ -22,13 +25,13 @@ const BooleanSort = ({ timer, nums }) => {
               setNumbers([...numbersRef.current]);
               setTimeout(() => {
                 setI(i + 1);
-                }, timerRef.current);
-            }, timerRef.current);
+                }, timer);
+            }, timer);
         }
         else{
         setTimeout(() => {
             setI(i + 1);
-        }, timerRef.current);
+        }, timer);
       }
         } else {
         if (ok.current) {
@@ -39,7 +42,7 @@ const BooleanSort = ({ timer, nums }) => {
         }
         }
     }
-  }, [i, isPaused]);
+  }, [i, isPaused, timer]);
 
   const isAsc = (num1, num2) => {
     return num1 <= num2;
@@ -47,7 +50,11 @@ const BooleanSort = ({ timer, nums }) => {
   
   return (
     <div>
-    <button onClick={(e) => setIsPaused(!isPaused)}>{isPaused ? `Start` : `Pause`}</button>
+    <label htmlFor={`timerInput`}>Change the speed:</label>
+    <input type="number" id={`timerInput`} placeholder={`${timer}ms current speed`} onChange={(e) => timeInputRef.current = e.target.value}></input>
+    <button onClick={(e) => setTimer(timeInputRef.current)}>Set timer</button>
+    <PlayButton onClick={(e) => setIsPaused(!isPaused)}>{isPaused ? <FontAwesomeIcon icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />}
+    </PlayButton>
     <Container>
       {numbers.map((num, idx) => {
         let color;
